@@ -1,15 +1,16 @@
 import Link from "next/link";
+import styles from "./initial_page.module.css";
 
 export default function Home() {
   return (
-    <main style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>🌟 Welcome to Fortune Horoscope App 🌟</h1>
-      <p>Discover your daily fortune based on your zodiac sign.</p>
-      <Link href="/login">
-        <button style={{ marginTop: "1rem", padding: "0.5rem 1rem", fontSize: "1rem" }}>
-          Get Started
-        </button>
-      </Link>
+    <main className={styles.homeContainer}>
+      <div className={styles.hero}>
+        <h1 className={styles.heroTitle}>🔮 Your Daily Fortune Awaits</h1>
+        <p className={styles.heroSubtitle}>Discover what the stars have in store for you today.</p>
+        <Link href="/login">
+          <button className={styles.heroButton}>Begin Your Journey</button>
+        </Link>
+      </div>
     </main>
   );
 }

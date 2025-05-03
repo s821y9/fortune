@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import styles from './page.module.css';
 
 export default function HomePage() {
   const [email, setEmail] = useState('');
@@ -73,37 +74,55 @@ export default function HomePage() {
   };
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>🌟 Welcome, {email}</h1>
-      <h2>✨ Your Daily Fortune</h2>
-      <button
-        onClick={handleGetFortune}
-        disabled={hasFortuneToday}
-        style={{ marginTop: '1rem', padding: '0.5rem 1rem' }}
-      >
-        {hasFortuneToday ? 'Fortune already received today' : 'Get My Fortune'}
-      </button>
+    <div>
+      <img
+        src="/images/image.png"
+        alt="Decorative floral background"
+        className={styles.backgroundImage}
+      />
+      <main className={styles.container}>
+        <h1 className={styles.welcome}>🌟 Welcome, {email}</h1>
+        <h2 className={styles.subtitle}>✨ Your Daily Fortune</h2>
+        {fortune && (
+          <div className={styles.fortuneDisplayCard} style={{ position: 'relative' }}>
+            <p className={styles.fortuneText}>{fortune}</p>
+            <span className={styles.star} style={{ top: '3%', left: '2%' }} />
+            <span className={styles.star} style={{ top: '-1%', left: '8%' }} />
+            <span className={styles.star} style={{ top: '30%', left: '0%' }} />
+            <span className={styles.star} style={{ bottom: '8%', right: '2%' }} />
+            <span className={styles.star} style={{ bottom: '5%', right: '8%' }} />
+            <span className={styles.star} style={{ bottom: '35%', right: '0%' }} />
+          </div>
+        )}
+        <button
+          onClick={handleGetFortune}
+          disabled={hasFortuneToday}
+          className={styles.fortuneButton}
+        >
+          {hasFortuneToday ? 'Fortune already received today' : 'Get My Fortune'}
+        </button>
 
-      {fortune && (
-        <div style={{ marginTop: '1.5rem' }}>
-          <p style={{ fontSize: '1.2rem' }}>{fortune}</p>
-          <textarea
-            value={reflection}
-            onChange={(e) => setReflection(e.target.value)}
-            placeholder="Write your thoughts here..."
-            rows={4}
-            style={{ width: '100%', marginTop: '1rem', padding: '0.5rem', fontSize: '1rem' }}
-          />
-          <button onClick={handleSaveReflection} style={{ marginTop: '1rem', padding: '0.5rem 1rem' }}>
-            Save Reflection
-          </button>
-          {savedReflection && (
-            <p style={{ marginTop: '1rem', fontStyle: 'italic', color: 'green' }}>
-              ✅ Reflection saved: {savedReflection}
-            </p>
-          )}
-        </div>
-      )}
-    </main>
+        {fortune && (
+          <div className={styles.fortuneCard}>
+            
+            <textarea
+              value={reflection}
+              onChange={(e) => setReflection(e.target.value)}
+              placeholder="Write your thoughts here..."
+              rows={4}
+              className={styles.reflectionInput}
+            />
+            <button onClick={handleSaveReflection} className={styles.saveButton}>
+              Save Reflection
+            </button>
+            {savedReflection && (
+              <p className={styles.savedReflection}>
+                ✅ Reflection saved: {savedReflection}
+              </p>
+            )}
+          </div>
+        )}
+      </main>
+    </div>
   );
 }

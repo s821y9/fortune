@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import axios from 'axios';
+import styles from './page.module.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -36,28 +37,34 @@ export default function LoginPage() {
   };
 
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <h1>🔐 Login</h1>
-      <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '300px' }}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Login</button>
-      </form>
-      <p style={{ marginTop: '1rem' }}>
-        Don't have an account? <Link href="/signup">Sign up</Link>
-      </p>
-    </main>
+    <div className={styles.rootWrapper}>
+      <div className={styles.loginContainer}>
+        <h1 className={styles.loginTitle}>🔐 Welcome Back</h1>
+        <div className={styles.loginBox}>
+          <form onSubmit={handleLogin} className={styles.loginForm}>
+            <div className={styles.inputGroup}>
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button className={styles.loginButton}>Login</button>
+          </form>
+          <p className={styles.loginFooter}>
+            Don't have an account? <Link href="/signup">Sign up</Link>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }

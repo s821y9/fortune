@@ -1,5 +1,6 @@
 // src/app/(main)/layout.tsx
 import Link from 'next/link';
+import styles from './layout.module.css';
 
 export default function MainLayout({
   children,
@@ -7,11 +8,11 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
-      <nav style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid #ccc' }}>
-        <Link href="/home">Home</Link>
-        <Link href="/wishlist">Wish List</Link>
-        <Link href="/profile">Profile</Link>
+    <main className={styles.main}>
+      <nav className={styles.nav}>
+        <Link href="/home" className={styles.link}>Home</Link>
+        <Link href="/wishlist" className={styles.link}>Wish List</Link>
+        <Link href="/profile" className={styles.link}>Profile</Link>
       </nav>
       {children}
     </main>

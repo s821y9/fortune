@@ -1,0 +1,34 @@
+.main {
+  padding: 2rem;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-size: 1.05rem;
+}
+
+.link {
+  color: #5a4e8c;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.link:hover {
+  color: #fff;
+  background-color: #7c6bb1;
+  text-decoration: none;
+}
