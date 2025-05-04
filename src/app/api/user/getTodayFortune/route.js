@@ -6,7 +6,7 @@ import User from '@/models/users';
 
 export async function POST(req) {
   try {
-    await connectToDatabase();
+    await dbConnect();
     const { email } = await req.json();
 
     if (!email) {
