@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
-import User from '@/models/users'; // 注意：这里是小写 'users'
+import User from '@/models/users'; 
 
 export async function POST(req: NextRequest) {
   await dbConnect();

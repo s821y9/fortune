@@ -15,14 +15,24 @@ export default function HomePage() {
     const storedEmail = localStorage.getItem('userEmail');
     if (storedEmail) {
       setEmail(storedEmail);
-    }
 
-    const today = new Date().toISOString().slice(0, 10);
-    const storedDate = localStorage.getItem('fortuneDate');
-    if (storedDate === today) {
-      setHasFortuneToday(true);
-      const savedFortune = localStorage.getItem('fortuneText');
-      if (savedFortune) setFortune(savedFortune);
+      fetch('/api/user/getTodayFortune', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: storedEmail }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.alreadyDrawn) {
+            setHasFortuneToday(true);
+            setFortune(data.fortune);
+          } else {
+            setHasFortuneToday(false);
+          }
+        })
+        .catch((err) => {
+          console.error('Error checking fortune status:', err);
+        });
     }
   }, []);
 
@@ -32,14 +42,33 @@ export default function HomePage() {
       'You will find joy in unexpected places.',
       'Someone is thinking of you right now.',
       'A small act of kindness brings big rewards.',
+      'Challenges are opportunities in disguise.',
+      'You are capable of more than you know.',
+      'Unexpected wealth may find its way to you.',
+      'A meaningful conversation will brighten your day.',
+      'You will soon receive good news.',
+      'Don’t be afraid to take that first step.',
+      'Your smile is a source of happiness for others.',
+      'Trust your intuition; it’s stronger than you think.',
+      'Adventure awaits just around the corner.',
+      'A surprise encounter will lead to something beautiful.',
+      'Success is built on small, daily improvements.',
+      'The universe is aligning in your favor.',
+      'Your efforts are being noticed by the right people.',
+      'Patience will reward you soon.',
+      'You will discover a hidden talent.',
+      'A dream you have will start to become real.',
+      'Let go of doubt—something amazing is coming.',
+      'A quiet moment today will bring clarity.',
+      'The next decision you make will be the right one.',
+      'Kindness you show today will come back to you multiplied.',
+      'You’re about to take a big step forward.',
+      'Let yourself be proud of how far you’ve come.'
     ];
     const random = fortunes[Math.floor(Math.random() * fortunes.length)];
     setFortune(random);
     setReflection('');
     setSavedReflection('');
-    const today = new Date().toISOString().slice(0, 10);
-    localStorage.setItem('fortuneDate', today);
-    localStorage.setItem('fortuneText', random);
     setHasFortuneToday(true);
   };
 
