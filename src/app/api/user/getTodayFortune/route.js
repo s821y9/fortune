@@ -1,5 +1,3 @@
-
-
 import { NextResponse } from 'next/server';
 import dbConnect from '@/lib/dbConnect';
 import User from '@/models/users';
@@ -19,13 +17,9 @@ export async function POST(req) {
     }
 
     const today = new Date().toISOString().slice(0, 10); // e.g. "2025-05-04"
-    const todayFortune = user.fortunes.find(f => f.date === today);
+    const alreadyDrawn = user.lastDrawDate === today;
 
-    if (todayFortune) {
-      return NextResponse.json({ alreadyDrawn: true, fortune: todayFortune.fortune });
-    } else {
-      return NextResponse.json({ alreadyDrawn: false });
-    }
+    return NextResponse.json({ alreadyDrawn, fortune: user.todayFortune || null });
   } catch (error) {
     console.error('Error checking today\'s fortune:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

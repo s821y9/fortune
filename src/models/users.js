@@ -5,6 +5,8 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   birthday: { type: String }, // YYYY-MM-DD
   createdAt: { type: Date, default: Date.now },
+  lastDrawDate: { type: String, default: null },
+  todayFortune: { type: String, default: null },
   fortunes: [
     {
       date: String,
@@ -13,6 +15,7 @@ const UserSchema = new mongoose.Schema({
       fulfilled: { type: Boolean, default: false }
     }
   ]
+  
 });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);

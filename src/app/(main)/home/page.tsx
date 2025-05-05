@@ -23,11 +23,9 @@ export default function HomePage() {
       })
         .then((res) => res.json())
         .then((data) => {
-          if (data.alreadyDrawn) {
-            setHasFortuneToday(true);
+          setHasFortuneToday(data.alreadyDrawn);
+          if (data.fortune) {
             setFortune(data.fortune);
-          } else {
-            setHasFortuneToday(false);
           }
         })
         .catch((err) => {
@@ -51,27 +49,20 @@ export default function HomePage() {
       const cleanedFortune = fortune.replace(/^.*your fortune reads: '(.+)'$/, '🥠 $1');
 
       if (fortune) {
-        const today = new Date().toISOString().slice(0, 10);
-        const response = await fetch('/api/user/addFortune', {
+        setFortune(cleanedFortune);
+        setReflection('');
+        setSavedReflection('');
+        setHasFortuneToday(true);
+        // Record that user has drawn fortune today (even if not saved)
+        await fetch('/api/user/recordDraw', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             email,
+            date: new Date().toISOString().slice(0, 10),
             fortune: cleanedFortune,
-            reflection: '',
-            date: today,
           }),
         });
-
-        const result = await response.json();
-        if (result.success) {
-          setFortune(cleanedFortune);
-          setReflection('');
-          setSavedReflection('');
-          setHasFortuneToday(true);
-        } else {
-          alert('Failed to save fortune: ' + result.message);
-        }
       } else {
         alert("No fortune received from API.");
       }
