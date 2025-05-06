@@ -12,12 +12,18 @@ interface MongooseCache {
 }
 
 declare global {
-  var mongoose: MongooseCache | undefined;
+  // 声明 globalThis 上的新属性
+  var _mongooseCache: MongooseCache | undefined;
 }
 
-let cached: MongooseCache = global.mongoose ?? { conn: null, promise: null };
-if (!global.mongoose) {
-  global.mongoose = cached;
+const globalForMongoose = globalThis as typeof globalThis & {
+  _mongooseCache?: MongooseCache;
+};
+
+let cached = globalForMongoose._mongooseCache ?? { conn: null, promise: null };
+
+if (!globalForMongoose._mongooseCache) {
+  globalForMongoose._mongooseCache = cached;
 }
 
 async function dbConnect() {
