@@ -13,14 +13,14 @@ interface MongooseCache {
 
 declare global {
   // 声明 globalThis 上的新属性
-  var _mongooseCache: MongooseCache | undefined;
+  let _mongooseCache: MongooseCache | undefined;
 }
 
 const globalForMongoose = globalThis as typeof globalThis & {
   _mongooseCache?: MongooseCache;
 };
 
-let cached = globalForMongoose._mongooseCache ?? { conn: null, promise: null };
+const cached = globalForMongoose._mongooseCache ?? { conn: null, promise: null };
 
 if (!globalForMongoose._mongooseCache) {
   globalForMongoose._mongooseCache = cached;
