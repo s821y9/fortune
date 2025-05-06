@@ -12,7 +12,7 @@ interface MongooseCache {
 }
 
 declare global {
-  // 声明 globalThis 上的新属性
+  // eslint-disable-next-line no-var
   var _mongooseCache: MongooseCache | undefined;
 }
 
