@@ -61,7 +61,7 @@ export default function LoginPage() {
             <button className={styles.loginButton}>Login</button>
           </form>
           <p className={styles.loginFooter}>
-            Don't have an account? <Link href="/signup">Sign up</Link>
+            Don&apos;t have an account? <Link href="/signup">Sign up</Link>
           </p>
         </div>
       </div>
