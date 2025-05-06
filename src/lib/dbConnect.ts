@@ -13,7 +13,7 @@ interface MongooseCache {
 
 declare global {
   // 声明 globalThis 上的新属性
-  let _mongooseCache: MongooseCache | undefined;
+  var _mongooseCache: MongooseCache | undefined;
 }
 
 const globalForMongoose = globalThis as typeof globalThis & {
