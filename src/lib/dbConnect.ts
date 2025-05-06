@@ -11,14 +11,13 @@ interface MongooseCache {
   promise: Promise<typeof mongoose> | null;
 }
 
-let cached: MongooseCache = (global as any).mongoose;
+declare global {
+  var mongoose: MongooseCache | undefined;
+}
 
-if (!cached) {
-  cached = {
-    conn: null,
-    promise: null,
-  };
-  (global as any).mongoose = cached;
+let cached: MongooseCache = global.mongoose ?? { conn: null, promise: null };
+if (!global.mongoose) {
+  global.mongoose = cached;
 }
 
 async function dbConnect() {

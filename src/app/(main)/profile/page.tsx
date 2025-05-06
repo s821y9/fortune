@@ -4,10 +4,16 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 
+type Fortune = {
+  date: string;
+  fortune: string;
+  reflection?: string;
+};
+
 export default function ProfilePage() {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
-  const [fortunes, setFortunes] = useState<any[]>([]);
+  const [fortunes, setFortunes] = useState<Fortune[]>([]);
   const [expandedCards, setExpandedCards] = useState<boolean[]>([]);
 
   const router = useRouter();
@@ -89,7 +95,7 @@ export default function ProfilePage() {
           {fortunes.length === 0 ? (
             <p>No fortunes saved yet.</p>
           ) : (
-            fortunes.map((f: any, idx: number) => (
+            fortunes.map((f, idx: number) => (
               <div
                 key={idx}
                 className={styles.fortuneCard}
