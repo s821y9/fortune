@@ -13,6 +13,7 @@ export async function POST(req: Request) {
         await user.save();
         return NextResponse.json({ success: true });
     } catch (err) {
-      return NextResponse.json({ success: false, error: 'Server error' });
+        console.error(err);
+        return NextResponse.json({ success: false, error: 'Server error' });
     }
 }
