@@ -10,6 +10,24 @@ type Fortune = {
   reflection?: string;
 };
 
+function getZodiacInfo(dateString: string): { sign: string; emoji: string } {
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  if ((month === 1 && day >= 20) || (month === 2 && day <= 18)) return { sign: 'Aquarius', emoji: '♒️' };
+  if ((month === 2 && day >= 19) || (month === 3 && day <= 20)) return { sign: 'Pisces', emoji: '♓️' };
+  if ((month === 3 && day >= 21) || (month === 4 && day <= 19)) return { sign: 'Aries', emoji: '♈️' };
+  if ((month === 4 && day >= 20) || (month === 5 && day <= 20)) return { sign: 'Taurus', emoji: '♉️' };
+  if ((month === 5 && day >= 21) || (month === 6 && day <= 20)) return { sign: 'Gemini', emoji: '♊️' };
+  if ((month === 6 && day >= 21) || (month === 7 && day <= 22)) return { sign: 'Cancer', emoji: '♋️' };
+  if ((month === 7 && day >= 23) || (month === 8 && day <= 22)) return { sign: 'Leo', emoji: '♌️' };
+  if ((month === 8 && day >= 23) || (month === 9 && day <= 22)) return { sign: 'Virgo', emoji: '♍️' };
+  if ((month === 9 && day >= 23) || (month === 10 && day <= 22)) return { sign: 'Libra', emoji: '♎️' };
+  if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return { sign: 'Scorpio', emoji: '♏️' };
+  if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return { sign: 'Sagittarius', emoji: '♐️' };
+  return { sign: 'Capricorn', emoji: '♑️' };
+}
+
 export default function ProfilePage() {
   const [email, setEmail] = useState('');
   const [birthday, setBirthday] = useState('');
@@ -20,10 +38,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('userEmail');
-    const storedBirthday = localStorage.getItem('userBirthday');
     if (storedEmail) {
-      setEmail(storedEmail);
-
       fetch('/api/user/getFortunes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -36,14 +51,30 @@ export default function ProfilePage() {
             setExpandedCards(new Array(data.fortunes.length).fill(false));
           }
         });
+
+      fetch('/api/user/getProfileInfo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: storedEmail }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setEmail(data.email);
+            setBirthday(data.birthday);
+          }
+        });
     }
-    if (storedBirthday) setBirthday(storedBirthday);
   }, []);
 
   const handleBirthdayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newBirthday = e.target.value;
     setBirthday(newBirthday);
-    localStorage.setItem('userBirthday', newBirthday);
+    fetch('/api/user/updateBirthday', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, birthday: newBirthday }),
+    });
   };
 
   const handleLogout = () => {
@@ -84,6 +115,11 @@ export default function ProfilePage() {
             />
           </label>
         </div>
+        {birthday && (
+          <p className={styles.userInfoText}>
+            <strong>🔮 Zodiac Sign:</strong> {getZodiacInfo(birthday).emoji} {getZodiacInfo(birthday).sign}
+          </p>
+        )}
       </div>
 
 

@@ -89,7 +89,7 @@ export default function WishlistPage() {
                     });
                     const data = await res.json();
                     if (data.success) {
-                      setFortunes(fortunes.filter((item: Fortune) => item.fortune !== f.fortune));
+                      setFortunes(fortunes.filter((item: Fortune) => !(item.fortune === f.fortune && item.date === f.date && item.reflection === f.reflection)));
                     }
                   } catch (err) {
                     console.error('Error deleting fortune:', err);
