@@ -127,7 +127,7 @@ export default function HomePage() {
           disabled={hasFortuneToday}
           className={styles.fortuneButton}
         >
-          {hasFortuneToday ? 'Fortune already received today' : 'Get My Fortune'}
+          {hasFortuneToday ? 'Fortune already received today' : 'Get My Fortune Cookie'}
         </button>
 
         {fortune && (

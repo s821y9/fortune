@@ -1,0 +1,101 @@
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.2rem;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  background-color: rgba(255, 255, 255, 0.622);
+  border: 3px solid rgba(133, 55, 222, 0.1);
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  text-align: center;
+}
+
+.welcome {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  color: #4d2b7f;
+}
+
+.subtitle {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  color: #6d4ca3;
+}
+
+.fortuneButton {
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  background-color: #d7bdf5;
+  color: #4d2b7f;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fortuneButton:hover {
+  background-color: #caa4f4;
+}
+
+.fortuneDisplayCard {
+  background-color: #7029e380;
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin: 1.2rem auto 0.8rem;
+  max-width: 700px;
+  box-shadow: 0 4px 12px rgba(102, 66, 209, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.fortuneText {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: rgb(255, 255, 255);
+  font-family: 'Dancing Script', cursive;
+  text-shadow: 0 2px 8px rgba(80, 40, 120, 0.4);
+}
+
+.reflectionInput {
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: 1px solid #c9b2e6;
+  text-align: center;
+  background-color: #f9f5fd;
+}
+
+.backgroundWrapper {
+  position: relative;
+  z-index: 0;
+}
+
+.backgroundBranch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.backgroundImage {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 1;
+}
